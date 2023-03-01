@@ -1,3 +1,11 @@
+main{
+    display: flex
+}
+
 #search-city {
     width: 25%
+}
+
+#city-info{
+    width: 75%;
 }
