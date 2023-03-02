@@ -9,3 +9,8 @@ main{
 #city-info{
     width: 75%;
 }
+
+.background-color{
+    color: white;
+    background-color: rgb(45, 45, 87);
+}
