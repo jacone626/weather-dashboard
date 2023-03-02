@@ -1,32 +1,44 @@
 
 
 var searchCity = function() {
-    $("#search-button").click(function(event){
-    event.preventDefault();
 
     var city = $("#city-input").val().trim();
 
     console.log("city name:", city);
 
-    var requestUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=c97f1cd354b9dea64133acfd0f866f22';
+    var requestUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=c97f1cd354b9dea64133acfd0f866f22&units=imperial';
     fetch(requestUrl)
         .then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
             console.log(data);
+            //Add city to list
+            $("#searched-cities").append('<li type="button" class="btn bg-secondary mt-2 form-control">' + city);
+            //Show current weather
             document.getElementById("current-city").textContent = city + " (" + dayjs().format('MM/D/YYYY') + ")"
-            
+            document.getElementById("current-weather-icon").src = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png"
+            document.getElementById("current-temp").textContent = "Temperature: " + data.main.temp + " °F"
+            document.getElementById("current-wind").textContent = "Wind: " + data.wind.speed + " mph"
+            document.getElementById("current-humidity").textContent = "Humidity: " + data.main.humidity + " %"
+            //Show future weather
+
             });
         } else {
             alert("City not found")
         }
   })
-})
+}
+
+var searchedCityButton = function() {
+   
+
 }
 
 
-searchCity();
-
+$("#search-button").click(function(event){
+    event.preventDefault();
+    searchCity();
+})
 
 
 $(function(){
