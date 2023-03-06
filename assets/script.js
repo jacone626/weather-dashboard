@@ -10,8 +10,6 @@ function searchCity () {
             response.json().then(function (data) {
             //Add city to list
                 $("#searched-cities").append('<li type="button" id="individual-city" class="btn bg-secondary mt-2 form-control">' + city);
-            //Show current city
-                $("#current-city")[0].textContent = city + " (" + dayjs().format('M/D/YYYY') + ")"
             //Set local storage with the latitude and longitude
                 var lat = data.coord.lat;
                 var lon = data.coord.lon;
@@ -37,6 +35,9 @@ function searchCity () {
 
 function currentWeather (data) {
 
+var city = $("#city-input")[0].value.trim();
+
+   $("#current-city")[0].textContent = city + " (" + dayjs().format('M/D/YYYY') + ")"
    $("#current-weather-icon")[0].src = "http://openweathermap.org/img/w/" + data.current.weather[0].icon + ".png";
    $("#current-temp")[0].textContent = "Temperature: " + data.current.temp + " °F";
    $("#current-wind")[0].textContent = "Wind: " + data.current.wind_speed + " mph";
@@ -71,12 +72,6 @@ function convertDate (data, i) {
 }
 
 
-// var searchedCityButton = function() {
-   
-
-// }
-
-
 $("#search-button").click(function(event){
     event.preventDefault();
     searchCity();
@@ -84,6 +79,22 @@ $("#search-button").click(function(event){
 
 $("#searched-cities").on("click", "#individual-city", function () {
 
-    console.log("working")
+    var savedLocation = localStorage.getItem($(this)[0].textContent).split(" , ");
+    savedLat = parseFloat(savedLocation[0]);
+    savedLon = parseFloat(savedLocation[1]);
 
+    viewSearchedCities();
 })
+
+function viewSearchedCities () {
+
+    var previousAPI = "http://api.openweathermap.org/data/2.5/onecall?lat=" + savedLat + "&lon=" + savedLon + "&exclude=minutely,hourly&units=imperial&appid=71311474f5b26fb7bbfa0bc1985b90cd";
+
+
+    fetch(previousAPI)
+        .then(function (response) {
+            response.json().then(function (data) {
+                currentWeather(data);
+            })
+    })
+}
