@@ -1,12 +1,11 @@
 
-
 var searchCity = function() {
 
-    var city = $("#city-input").val().trim();
+    var city = $("#city-input")[0].value.trim();
 
     console.log("city name:", city);
 
-    var requestUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=c97f1cd354b9dea64133acfd0f866f22&units=imperial';
+    var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=c97f1cd354b9dea64133acfd0f866f22&units=imperial';
     fetch(requestUrl)
         .then(function (response) {
         if (response.ok) {
@@ -21,19 +20,15 @@ var searchCity = function() {
             var latAndLon = lat.toString() + " , " + lon.toString();
 
             localStorage.setItem(city, latAndLon)
-            //Show current weather
-            document.getElementById("current-city").textContent = city + " (" + dayjs().format('MM/D/YYYY') + ")"
-            document.getElementById("current-weather-icon").src = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png"
-            document.getElementById("current-temp").textContent = "Temperature: " + data.main.temp + " °F"
-            document.getElementById("current-wind").textContent = "Wind: " + data.wind.speed + " mph"
-            document.getElementById("current-humidity").textContent = "Humidity: " + data.main.humidity + " %"
+            //Show current city
+            $("#current-city")[0].textContent = city + " (" + dayjs().format('MM/D/YYYY') + ")"
             //Show future weather
-            // var futureAPI = "http://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&units=imperial&appid=c97f1cd354b9dea64133acfd0f866f22";
-            var futureAPI = "http://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly&appid=c97f1cd354b9dea64133acfd0f866f22"
+            var futureAPI = "http://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&units=imperial&appid=71311474f5b26fb7bbfa0bc1985b90cd";
             fetch(futureAPI)
-                .then(function (response) {
-                response.json().then(function (data) {
-                console.log(data);
+                .then(function (futureResponse) {
+                futureResponse.json().then(function (futureData) {
+                console.log(futureData);
+                currentWeather(futureData);
                 })
             })
             });
@@ -43,8 +38,17 @@ var searchCity = function() {
   })
 }
 
+function currentWeather (data) {
+
+   $("#current-weather-icon")[0].src = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png"
+   $("#current-temp")[0].textContent = "Temperature: " + data.main.temp + " °F"
+   $("#current-wind")[0].textContent = "Wind: " + data.wind.speed + " mph"
+   $("#current-humidity")[0].textContent = "Humidity: " + data.main.humidity + " %"
+}
+
 function showFiveDay (data) {
-    for (var i=0; i<5; i++) {
+    document.getElementById("temp-1").textContent = "Temperature: " + data.daily[1].temp.day + " °F"
+    for (var i=1; i<6; i++) {
         var weatherData = {
             date: "not sure yet",
             icon: "http://openweathermap.org/img/w/" + data.daily[i++].weather[0].icon + ".png",
@@ -52,7 +56,19 @@ function showFiveDay (data) {
             wind: data.daily[i++].wind_speed,
             humidity: data.daily[i++].humidity
         }
+        var currentDate = "#date-" + i;
+        $(currentDate)[1].textContent = weatherData.date;
+        currentImg= "#img-" + i;
+        $(currentImg)[1].src = weatherData.icon;
+        currentTemp= "#temp-" + i;
+        $(currentTemp)[1].textContent = "Wind: " + weatherData.temp + " mph"
+        currentWind= "#wind-" + i;
+        $(currentWind)[1].textContent = "Temp: " + weatherData.temp + " °F"
+        currentHumidity = "#humidity-" + i;
+        $(currentHumidity)[1].textContent = "Humidity: " + weatherData.humidity + "%";
     }
+
+
 }
 
 var searchedCityButton = function() {
@@ -66,9 +82,10 @@ $("#search-button").click(function(event){
     searchCity();
 })
 
+$("#searched-cities").click(function() {
 
-$(function(){
 
-    
-});
+})
+
+
 
