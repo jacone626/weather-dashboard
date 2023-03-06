@@ -14,6 +14,13 @@ var searchCity = function() {
             console.log(data);
             //Add city to list
             $("#searched-cities").append('<li type="button" class="btn bg-secondary mt-2 form-control">' + city);
+            //Set local storage with the latitude and longitude
+            var lat = data.coord.lat;
+            var lon = data.coord.lon;
+
+            var latAndLon = lat.toString() + " , " + lon.toString();
+
+            localStorage.setItem(city, latAndLon)
             //Show current weather
             document.getElementById("current-city").textContent = city + " (" + dayjs().format('MM/D/YYYY') + ")"
             document.getElementById("current-weather-icon").src = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png"
@@ -21,7 +28,8 @@ var searchCity = function() {
             document.getElementById("current-wind").textContent = "Wind: " + data.wind.speed + " mph"
             document.getElementById("current-humidity").textContent = "Humidity: " + data.main.humidity + " %"
             //Show future weather
-            var futureAPI = "https://api.openweathermap.org/data/2.5/forecast/daily/?q=" + city + "&cnt=5&appid=c97f1cd354b9dea64133acfd0f866f22&units=imperial";
+            // var futureAPI = "http://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&units=imperial&appid=c97f1cd354b9dea64133acfd0f866f22";
+            var futureAPI = "http://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly&appid=c97f1cd354b9dea64133acfd0f866f22"
             fetch(futureAPI)
                 .then(function (response) {
                 response.json().then(function (data) {
@@ -39,10 +47,10 @@ function showFiveDay (data) {
     for (var i=0; i<5; i++) {
         var weatherData = {
             date: "not sure yet",
-            icon: "http://openweathermap.org/img/w/" + data.list[i++].weather[0].icon + ".png",
-            temp: data.list[i++].main.temp,
-            wind: data.list[i++].wind.speed,
-            humidity: data.list[i++].humidity
+            icon: "http://openweathermap.org/img/w/" + data.daily[i++].weather[0].icon + ".png",
+            temp: data.daily[i++].temp.day,
+            wind: data.daily[i++].wind_speed,
+            humidity: data.daily[i++].humidity
         }
     }
 }
