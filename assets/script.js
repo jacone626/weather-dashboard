@@ -3,18 +3,15 @@ function searchCity () {
 
     var city = $("#city-input")[0].value.trim();
 
-    console.log("city name:", city);
-
     var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=c97f1cd354b9dea64133acfd0f866f22&units=imperial';
     fetch(requestUrl)
         .then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-                console.log(data);
             //Add city to list
-                $("#searched-cities").append('<li type="button" class="btn bg-secondary mt-2 form-control">' + city);
+                $("#searched-cities").append('<li type="button" id="individual-city" class="btn bg-secondary mt-2 form-control">' + city);
             //Show current city
-                $("#current-city")[0].textContent = city + " (" + dayjs().format('MM/D/YYYY') + ")"
+                $("#current-city")[0].textContent = city + " (" + dayjs().format('M/D/YYYY') + ")"
             //Set local storage with the latitude and longitude
                 var lat = data.coord.lat;
                 var lon = data.coord.lon;
@@ -28,7 +25,6 @@ function searchCity () {
                 fetch(futureAPI)
                     .then(function (futureResponse) {
                     futureResponse.json().then(function (futureData) {
-                        console.log(futureData);
                         currentWeather(futureData);
                 })
             })
@@ -53,8 +49,8 @@ function showFiveDay (data) {
    
     for (var i = 0; i < 5; i++) {
 
-        // var currentDate = "#date-" + i;
-        // $(currentDate)[0].textContent = "pending";
+        var currentDate = "#date-" + i;
+        $(currentDate)[0].textContent = convertDate(data, i);
         var currentImg= "#weather-icon-" + i;
         $(currentImg)[0].src = "http://openweathermap.org/img/w/" + data.daily[i+1].weather[0].icon + ".png";
         var currentTemp= "#temp-" + i;
@@ -68,6 +64,13 @@ function showFiveDay (data) {
 
 }
 
+function convertDate (data, i) {
+    var newDate = new Date(data.daily[i+1].dt *1000)
+
+    return (newDate.toLocaleDateString("en-US"))
+}
+
+
 // var searchedCityButton = function() {
    
 
@@ -79,10 +82,8 @@ $("#search-button").click(function(event){
     searchCity();
 })
 
-// $("#searched-cities").click(function() {
+$("#searched-cities").on("click", "#individual-city", function () {
 
+    console.log("working")
 
-// })
-
-
-
+})
