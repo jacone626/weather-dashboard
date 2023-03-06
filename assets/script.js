@@ -51,11 +51,11 @@ function currentWeather (data) {
 
 function showFiveDay (data) {
    
-    for (var i=1; i<6; i++) {
-        
-        var currentDate = "#date-" + i;
-        $(currentDate)[0].textContent = "pending";
-        var currentImg= "#img-" + i;
+    for (var i = 0; i < 5; i++) {
+
+        // var currentDate = "#date-" + i;
+        // $(currentDate)[0].textContent = "pending";
+        var currentImg= "#weather-icon-" + i;
         $(currentImg)[0].src = "http://openweathermap.org/img/w/" + data.daily[i+1].weather[0].icon + ".png";
         var currentTemp= "#temp-" + i;
         $(currentTemp)[0].textContent = "Temp " + data.daily[i+1].temp.day + " °F";
