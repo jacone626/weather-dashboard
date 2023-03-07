@@ -13,6 +13,10 @@ main{
     width: 65%;
 }
 
+/* .hidden{
+    display: none
+} */
+
 .background-color{
     color: white;
     background-color: rgb(45, 45, 87);
