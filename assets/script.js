@@ -9,7 +9,6 @@ function searchCity () {
         if (response.ok) {
             response.json().then(function (data) {
             //Add city to list
-            console.log(data)
                 $("#searched-cities").append('<li type="button" id="individual-city" class="btn bg-secondary mt-2 form-control">' + city);
             //Set local storage with the latitude and longitude
                 var lat = data.coord.lat;
@@ -20,7 +19,7 @@ function searchCity () {
                 localStorage.setItem(city, latAndLon)
 
             //Show future weather
-                var futureAPI = "http://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&units=imperial&appid=2bdcf4a80dd9deb5726ef62daec520a9";
+                var futureAPI = "http://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&units=imperial&appid=b262298fbe39ad30d243f31f6e1297bc";
                 fetch(futureAPI)
                     .then(function (futureResponse) {
                     futureResponse.json().then(function (futureData) {
@@ -35,6 +34,8 @@ function searchCity () {
 }
 
 function currentWeather (data) {
+
+ $("#city-info").removeClass("hidden")
 
 var city = $("#city-input")[0].value.trim();
 
@@ -76,8 +77,6 @@ function convertDate (data, i) {
 $("#search-button").click(function(event){
     event.preventDefault();
     searchCity();
-
-   
 })
 
 $("#searched-cities").on("click", "#individual-city", function () {
@@ -91,7 +90,7 @@ $("#searched-cities").on("click", "#individual-city", function () {
 
 function viewSearchedCities () {
 
-    var previousAPI = "http://api.openweathermap.org/data/2.5/onecall?lat=" + savedLat + "&lon=" + savedLon + "&exclude=minutely,hourly&units=imperial&appid=2bdcf4a80dd9deb5726ef62daec520a9";
+    var previousAPI = "http://api.openweathermap.org/data/2.5/onecall?lat=" + savedLat + "&lon=" + savedLon + "&exclude=minutely,hourly&units=imperial&appid=b262298fbe39ad30d243f31f6e1297bc";
 
 
     fetch(previousAPI)
@@ -100,4 +99,6 @@ function viewSearchedCities () {
                 currentWeather(data);
             })
     })
+
+    $("#current-city").textContent = $(this).textContent
 }
