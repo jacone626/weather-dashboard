@@ -1,4 +1,4 @@
-
+//Searches the city and pulls the API key
 function searchCity () {
 
     var city = $("#city-input")[0].value.trim();
@@ -35,6 +35,7 @@ function searchCity () {
   })
 }
 
+//Displays the current weather at the top
 function currentWeather (data) {
 
  $("#city-info").removeClass("hidden")
@@ -47,6 +48,7 @@ function currentWeather (data) {
    showFiveDay(data);
 }
 
+//Runs the five day weather forecast
 function showFiveDay (data) {
    
     for (var i = 0; i < 5; i++) {
@@ -66,18 +68,20 @@ function showFiveDay (data) {
 
 }
 
+//Takes the date from the API and converts it to normal notation
 function convertDate (data, i) {
     var newDate = new Date(data.daily[i+1].dt *1000)
 
     return (newDate.toLocaleDateString("en-US"))
 }
 
-
+//Event listener to search city when you click on the search button
 $("#search-button").click(function(event){
     event.preventDefault();
     searchCity();
 })
 
+//Event listener when you click on one of the previously searched cities
 $("#searched-cities").on("click", "#individual-city", function () {
 
     var savedLocation = localStorage.getItem($(this)[0].textContent).split(" , ");
@@ -90,6 +94,7 @@ $("#searched-cities").on("click", "#individual-city", function () {
 
 })
 
+//Pulls up the information for the previously searched city
 function viewSearchedCities () {
 
     var previousAPI = "http://api.openweathermap.org/data/2.5/onecall?lat=" + savedLat + "&lon=" + savedLon + "&exclude=minutely,hourly&units=imperial&appid=b262298fbe39ad30d243f31f6e1297bc";

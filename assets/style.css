@@ -6,6 +6,7 @@ main{
 #header-color{
     background-image: linear-gradient(to right,rgb(62, 94, 235), rgb(79, 26, 123));
 }
+
 #search-city {
     width: 25%
 }

@@ -1,7 +1,7 @@
 # Weather Dashboard
 
 ## Description
-This weather dashboard was made to provide the current weather and five day forecast for the city of your choosing. You can enter the city into the search bar and are provided a weather icon that shows the current conditions along with the temperatures, wind, and humidity over a five day period. This sites functionality was built using javascript as well as an openweather API. The actual weather data is being pulled from this API and is based on the cities latitude and longitude coordinates. 
+This weather dashboard was made to provide the current weather and five day forecast for the city of your choosing. You can enter the city into the search bar and are provided a weather icon that shows the current conditions along with the temperatures, wind, and humidity over a five day period. This site's functionality was built using javascript as well as an openweather API. The actual weather data is being pulled from this API and is based on the cities latitude and longitude coordinates. 
 
 ## Installation
 N/A
