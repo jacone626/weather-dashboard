@@ -10,6 +10,8 @@ function searchCity () {
             response.json().then(function (data) {
             //Add city to list
                 $("#searched-cities").append('<li type="button" id="individual-city" class="btn bg-secondary mt-2 form-control">' + city);
+            //Added current city to this function to avoid issues when clicking on searched cities
+            $("#current-city")[0].textContent = city + " (" + dayjs().format('M/D/YYYY') + ")"
             //Set local storage with the latitude and longitude
                 var lat = data.coord.lat;
                 var lon = data.coord.lon;
@@ -37,9 +39,6 @@ function currentWeather (data) {
 
  $("#city-info").removeClass("hidden")
 
-var city = $("#city-input")[0].value.trim();
-
-   $("#current-city")[0].textContent = city + " (" + dayjs().format('M/D/YYYY') + ")"
    $("#current-weather-icon")[0].src = "http://openweathermap.org/img/w/" + data.current.weather[0].icon + ".png";
    $("#current-temp")[0].textContent = "Temp: " + data.current.temp + " °F";
    $("#current-wind")[0].textContent = "Wind: " + data.current.wind_speed + " mph";
@@ -85,7 +84,10 @@ $("#searched-cities").on("click", "#individual-city", function () {
     savedLat = parseFloat(savedLocation[0]);
     savedLon = parseFloat(savedLocation[1]);
 
+    $("#current-city")[0].textContent = $(this)[0].textContent + " (" + dayjs().format('M/D/YYYY') + ")"
+
     viewSearchedCities();
+
 })
 
 function viewSearchedCities () {
@@ -99,6 +101,4 @@ function viewSearchedCities () {
                 currentWeather(data);
             })
     })
-
-    $("#current-city").textContent = $(this).textContent
 }
