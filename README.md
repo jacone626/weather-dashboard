@@ -1,26 +1,27 @@
 # Weather Dashboard
-A calendar that tracks your schedule during the work day
 
 ## Description
-This weather dashbaord was made to provide the current weather and five day forecast for the city of your choosing. 
+This weather dashboard was made to provide the current weather and five day forecast for the city of your choosing. You can enter the city into the search bar and are provided a weather icon that shows the current conditions along with the temperatures, wind, and humidity over a five day period. This sites functionality was built using javascript as well as an openweather API. The actual weather data is being pulled from this API and is based on the cities latitude and longitude coordinates. 
 
 ## Installation
 N/A
 
 ## Usage
-This work day schedule has a simple design with a header at the top that displays the title and date. 
+This weather dashboard opens with a page that displays the site's title and a search bar to enter the city of your choice. 
 
-![picture of full website. There is a title at the top with the date and time blocks from 9am-5pm with text boxes that allow you to enter information. ](assets/images/Work-day-scheduler.png)
+![picture of opening website. Weather dashboard is displayed at the top with a search bar below it on the left ](assets/images/weather-dashboard.png)
 
-Below the title is the actual work schedule calendar. It contains time blocks from 9am-5pm to account for the typical work day. Within each time block, there is a text box and a save button. If you enter information into the text box and hit the save button that corresponds to the text box, then that text will be saved into local storage. That means you can refresh the webpage and still see this saved information. In the below picture, "hello" has been entered into the 9am time block and is saved to local storage.
+Once you enter a city and press search, that current weather and five day forecast for that city will be displayed on your right. Additionaly, that city will be added below the search bar on the left side of the screen. This site tracks the conditions, temperature, wind, and humidity. If you enter an invalid city, an alert will pop up saying "city not found". Below is a picture of the site after searching Wilmington. 
 
-![picture of the title and time blocks down to 12pm. "hello" is entered into the 9am time block.](assets/images/work-day-saved.png)
+![picture of current weather for Wilmington on top right and the five day forecast below the current weather.](assets/images/weather-dashboard-wilmington.png)
 
-One final feature of this website is the color-coded time blocks. In this instance, a gray background means that this time-period is in the past; a red background means this time period is in the present; and a green background means the time-period is in the future. In the above picture, you will notice that 11am is in red. This is because the picture was taken at approximately 11:10am. Once the clock shifts to 12pm, then the 11am time block will become gray and the 12pm time block will turn red. All of the times after 12pm will still be green since they are still in the "future". 
+After entering a city, you can search another city in the search bar. Simply clear the search bar and enter the new city. Once you do that and hit search, the new city's weather will display on the screen and that city will also be added below the search bar. If you would like to see an already searched city, you can simply click on one of your previously searched cities and the current weather and five day forecast will display. Below is a picture of the website with several searched cities. 
+
+![picture of current weather for New Orleans on top right and the five day forecast below the current weather. Several previously searched cities are displayed below the search bar on the left side of the screen.](assets/images/weather-dashboard-cities.png)
 
 Below is a link to the active website:
 
-https://jacone626.github.io/work-day-scheduler/
+
 
 ## Credits
 https://www.tutorialrepublic.com/faq/how-to-convert-a-unix-timestamp-to-time-in-javascript.php
