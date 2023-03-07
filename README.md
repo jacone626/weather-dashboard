@@ -21,7 +21,7 @@ After entering a city, you can search another city in the search bar. Simply cle
 
 Below is a link to the active website:
 
-
+https://jacone626.github.io/weather-dashboard/
 
 ## Credits
 https://www.tutorialrepublic.com/faq/how-to-convert-a-unix-timestamp-to-time-in-javascript.php

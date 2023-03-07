@@ -21,7 +21,7 @@ function searchCity () {
                 localStorage.setItem(city, latAndLon)
 
             //Show future weather
-                var futureAPI = "http://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&units=imperial&appid=b262298fbe39ad30d243f31f6e1297bc";
+                var futureAPI = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&units=imperial&appid=b262298fbe39ad30d243f31f6e1297bc";
                 fetch(futureAPI)
                     .then(function (futureResponse) {
                     futureResponse.json().then(function (futureData) {
@@ -40,7 +40,7 @@ function currentWeather (data) {
 
  $("#city-info").removeClass("hidden")
 
-   $("#current-weather-icon")[0].src = "http://openweathermap.org/img/w/" + data.current.weather[0].icon + ".png";
+   $("#current-weather-icon")[0].src = "https://openweathermap.org/img/w/" + data.current.weather[0].icon + ".png";
    $("#current-temp")[0].textContent = "Temp: " + data.current.temp + " °F";
    $("#current-wind")[0].textContent = "Wind: " + data.current.wind_speed + " mph";
    $("#current-humidity")[0].textContent = "Humidity: " + data.current.humidity + " %";
@@ -56,7 +56,7 @@ function showFiveDay (data) {
         var currentDate = "#date-" + i;
         $(currentDate)[0].textContent = convertDate(data, i);
         var currentImg= "#weather-icon-" + i;
-        $(currentImg)[0].src = "http://openweathermap.org/img/w/" + data.daily[i+1].weather[0].icon + ".png";
+        $(currentImg)[0].src = "https://openweathermap.org/img/w/" + data.daily[i+1].weather[0].icon + ".png";
         var currentTemp= "#temp-" + i;
         $(currentTemp)[0].textContent = "Temp: " + data.daily[i+1].temp.day + " °F";
         var currentWind= "#wind-" + i;
@@ -97,7 +97,7 @@ $("#searched-cities").on("click", "#individual-city", function () {
 //Pulls up the information for the previously searched city
 function viewSearchedCities () {
 
-    var previousAPI = "http://api.openweathermap.org/data/2.5/onecall?lat=" + savedLat + "&lon=" + savedLon + "&exclude=minutely,hourly&units=imperial&appid=b262298fbe39ad30d243f31f6e1297bc";
+    var previousAPI = "https://api.openweathermap.org/data/2.5/onecall?lat=" + savedLat + "&lon=" + savedLon + "&exclude=minutely,hourly&units=imperial&appid=b262298fbe39ad30d243f31f6e1297bc";
 
 
     fetch(previousAPI)
